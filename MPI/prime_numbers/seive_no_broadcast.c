@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
     MPI_Comm_size(MPI_COMM_WORLD, &processors);
 
     n = atoll(argv[1]);
-    n1 = (n%2) ? (n/2 + 1) : n/2;
+    n1 = (n%2 == 0) ? n/2 : (n/2 + 1);
 
     low = BLOCK_LOW(rank, processors, n1);
     high = BLOCK_HIGH(rank, processors, n1);
@@ -38,14 +38,14 @@ int main(int argc, char *argv[]){
         exit(1);
     }
     
-    ull rootn = (sqrt(n));
+    ull rootn = (ull) (sqrt(n));
     int primesSize = (rootn%2)? rootn/2 +1: rootn/2;
     primes = (char *)malloc(primesSize);
     memset(primes, 0, primesSize);
     primes[0] = 1; //marking 1 as not time (2i+1 i.e 2*0+1)
-    for (int p = 3; p <= (int) rootn; p +=2){
+    for (ull p = 3; p <= rootn; p +=2){
         if (primes[(p-1)/2] == 0){
-            for (int itr = p*p; itr <= (int) rootn; itr += p){
+            for (ull itr = p*p; itr <= rootn; itr += p){
                 if (itr %2 != 0){
                     primes[(itr-1)/2] = 1;
                 }
@@ -80,12 +80,12 @@ int main(int argc, char *argv[]){
             for (int i = start; i < size; i+= prime){
                 marked[i] = 1;
             }
-        }
 
-        if (!rank){
-            int index = (prime - 1)/2;
-            marked[index] = 0;
-        }
+            if (!rank){
+                int index = (prime - 1)/2;
+                marked[index] = 0;
+            }
+        }        
     }
 
     for (int i = 0; i <size; i++){

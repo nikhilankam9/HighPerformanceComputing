@@ -51,9 +51,7 @@ int main(int argc, char *argv[]){
     prime = 2;
     while (prime * prime <= n){
         int start = 0;
-        if (prime * prime > low){
-            start = prime * prime - low;
-        } else if (low % prime != 0){
+        if (low % prime != 0){
             start = prime - (low % prime);
         }
         for (int i = start; i < size; i+= prime){
