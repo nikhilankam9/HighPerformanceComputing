@@ -17,3 +17,6 @@ Cache hit:
 To leverage the cache, a block of the input array in each process is processed completely before stepping onto the next block.
 
 ![Benchmark](https://github.com/nikhilankam9/high_perf_computing/blob/prime_numbers/MPI/prime_numbers/benchmark.png)
+
+By using various techniques we could see an improvement of around 7 fold.
+Credit: Execution tested using the [Foundry](https://itrss.mst.edu/cluster/foundry/) cluster at MST Rolla, and the experimentation is done solely for educational purposes.
